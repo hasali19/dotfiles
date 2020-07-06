@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+dotfiles="$HOME/dotfiles"
+ohmyzsh="$HOME/.oh-my-zsh"
+
+# Ensure that dotfiles have been cloned into $HOME
+if [ ! -d "$dotfiles" ]; then
+    echo "dotfiles must be cloned into $dotfiles" 1>&2
+    exit 1
+fi
+
+echo
+echo "Cloning submodules..."
+echo "> git submodule update --init --recursive"
+git submodule update --init --recursive
+
+echo
+echo "Cloning oh-my-zsh..."
+
+if [ -d "$ohmyzsh" ]; then
+    echo "$ohmyzsh already exists"
+else
+    git clone https://github.com/ohmyzsh/ohmyzsh "$ohmyzsh"
+fi
+
+echo
+echo "Creating symlinks..."
+
+symlinks=(
+    "zsh/zshrc:.zshrc"
+    "zsh/powerlevel10k:.oh-my-zsh/custom/themes/powerlevel10k"
+    "zsh/p10k.zsh:.p10k.zsh"
+    "zsh/zsh-autosuggestions:.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    "zsh/zsh-syntax-highlighting:.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+)
+
+for symlink in ${symlinks[@]}; do
+    # Split string by ':'
+    IFS=":" read target link <<< $symlink
+
+    # Check if already linked
+    if [ -L "$HOME/$link" ] || [ -f "$HOME/$link" ] || [ -d "$HOME/$link" ]; then
+        echo "$HOME/$link already exists"
+    else
+        echo "Creating $link -> $target"
+        ln -s "$dotfiles/$target" "$HOME/$link"
+    fi
+done
+
+echo
