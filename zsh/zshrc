@@ -118,3 +118,5 @@ alias cat="bat"
 alias catp="bat --plain"
 
 alias ls="exa -l --git"
+
+eval "$(direnv hook zsh)"

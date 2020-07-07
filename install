@@ -77,7 +77,7 @@ echo "Installing other utils..."
 
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install httpie -y
+sudo apt-get install -y httpie direnv
 
 if ! command -v gcc &> /dev/null ; then
     sudo apt-get install gcc -y
