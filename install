@@ -31,6 +31,7 @@ echo "Creating symlinks..."
 
 symlinks=(
     "bin:.local/bin"
+    "gitconfig:.gitconfig"
     "zsh/zshrc:.zshrc"
     "zsh/powerlevel10k:.oh-my-zsh/custom/themes/powerlevel10k"
     "zsh/p10k.zsh:.p10k.zsh"
