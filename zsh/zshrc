@@ -111,4 +111,10 @@ source $ZSH/oh-my-zsh.sh
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
+path+="$HOME/.local/bin"
 path+="$HOME/.cargo/bin"
+
+alias cat="bat"
+alias catp="bat --plain"
+
+alias ls="exa -l --git"

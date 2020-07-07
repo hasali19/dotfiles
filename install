@@ -3,6 +3,9 @@
 dotfiles="$HOME/dotfiles"
 ohmyzsh="$HOME/.oh-my-zsh"
 
+# Make sure we have sudo privileges
+sudo -v
+
 # Ensure that dotfiles have been cloned into $HOME
 if [ ! -d "$dotfiles" ]; then
     echo "dotfiles must be cloned into $dotfiles" 1>&2
@@ -27,6 +30,7 @@ echo
 echo "Creating symlinks..."
 
 symlinks=(
+    "bin:.local/bin"
     "zsh/zshrc:.zshrc"
     "zsh/powerlevel10k:.oh-my-zsh/custom/themes/powerlevel10k"
     "zsh/p10k.zsh:.p10k.zsh"
@@ -66,5 +70,20 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 nvm install node
+
+echo
+echo "Installing other utils..."
+
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install httpie -y
+
+if ! command -v gcc &> /dev/null ; then
+    sudo apt-get install gcc -y
+fi
+
+cargo install exa
+cargo install bat
+cargo install ytop
 
 echo
