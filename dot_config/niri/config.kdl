@@ -388,6 +388,11 @@ window-rule {
     default-column-width { proportion 1.0; }
 }
 
+window-rule {
+    match title=r#"^Bitwarden - Vivaldi$"#
+    open-floating true
+}
+
 debug {
     honor-xdg-activation-with-invalid-serial
 }
